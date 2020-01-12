@@ -1,6 +1,11 @@
 # Hey-Jarvis
  An Android application that performs commands with voice recognition
 
-### first day commit progress
+- first try
 
-![11](./progressNote/1.gif)
+![11](./DevelopNote/1.gif)
+>This way, the script was recorded on Google and changed its direction.
+
+- I changed it the following way.
+
+![22](./DevelopNote/2.gif)

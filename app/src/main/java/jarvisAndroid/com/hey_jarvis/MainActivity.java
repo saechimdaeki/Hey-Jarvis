@@ -7,7 +7,9 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.ImageButton;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton imgbutton;
     private TextView textView;
     boolean check=false;
+    boolean checkloof=false;
     TextToSpeech tts;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
                     textView.setText("");
                     check=true;
                 }
+                /*
                 Intent intent =new Intent (RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.KOREA);
@@ -50,7 +54,12 @@ public class MainActivity extends AppCompatActivity {
                 }catch(ActivityNotFoundException a){
                     Toast.makeText(getApplicationContext(),"intent pool",Toast.LENGTH_SHORT).show();
                 }
+                다른방식 하지만 이렇할시에는 google script가 저장된다는 toast message가뜬다.
+                 */
+                inputVoice(textView);
             }
+
+
         });
         tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
@@ -72,28 +81,91 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+    public void inputVoice(final TextView txt) {
+        try {
+            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+            intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, this.getPackageName());
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR");
+            final SpeechRecognizer stt = SpeechRecognizer.createSpeechRecognizer(this);
+            stt.setRecognitionListener(new RecognitionListener() {
+                @Override
+                public void onReadyForSpeech(Bundle params) {
+                    toast("음성 입력 시작...");
+                }
+
+                @Override
+                public void onBeginningOfSpeech() {
+
+                }
+
+                @Override
+                public void onRmsChanged(float rmsdB) {
+
+                }
+
+                @Override
+                public void onBufferReceived(byte[] buffer) {
+                }
+
+                @Override
+                public void onEndOfSpeech() {
+                    toast("음성 입력 종료");
+                }
+
+                @Override
+                public void onError(int error) {
+                    toast("오류 발생 : " + error);
+                }
+
+                @Override
+                public void onResults(Bundle results) {
+                    ArrayList<String> result = (ArrayList<String>) results.get(SpeechRecognizer.RESULTS_RECOGNITION);
+                    txt.append("[나] "+result.get(0)+"\n");
+                    replyAnswer(result.get(0), txt);
+                    stt.destroy();
+                }
+
+                @Override
+                public void onPartialResults(Bundle partialResults) {
+
+                }
+
+                @Override
+                public void onEvent(int eventType, Bundle params) {
+
+                }
+            });
+            stt.startListening(intent);
+        } catch (Exception e) {
+            toast(e.toString());
+        }
+    }
 
     private void replyAnswer(String input, TextView txt){
         try{
-            if(input.equals("안녕")){
-                txt.append("[자비스] 안녕하세요 주인님.\n");
-                tts.speak("안녕하세요 주인님", TextToSpeech.QUEUE_FLUSH, null);
-            }
-            else if(input.equals("너는 누구니")){
-                txt.append("[자비스]저는 자비스로 주인님의 집사입니다.\n");
-                tts.speak("저는 자비스로 주인님의 집사입니다.", TextToSpeech.QUEUE_FLUSH, null);
-            }
-            else if(input.equals("택시 불러 줘")){
-                txt.append("[자비스] 택시 불러드리겠습니다 주인님.\n");
-                tts.speak("택시를 찾고있어요 .", TextToSpeech.QUEUE_FLUSH, null);
-                callCar();
-            }
-            else if(input.equals("종료")){
+            checkloof=false;
+            String cmp=input.split(" ")[0];
+            String[] me={"안녕","너는 누구야","심심해"};
+            String[] jarvis={"안녕하세요 주인님","저는 자비스로 주인님의 집사입니다","백준 문제푸는것 어떠세요?"};
+            if(input.equals("종료")){
+                tts.speak("서비스를 종료합니다 .", TextToSpeech.QUEUE_FLUSH, null);
                 finish();
             }
-            else {
-                txt.append("[자비스] 아직 그런기능이 만들어져있지 않습니다\n");
-                tts.speak("아직 그런기능이 만들어져있지 않습니다", TextToSpeech.QUEUE_FLUSH, null);
+            if(input.equals("택시 불러 줘")){
+                callCar();
+                checkloof=true;
+            }
+            for(int i=0; i<me.length; i++){
+                if(input.equals(me[i])){
+                    textView.append("[자비스]:"+jarvis[i]+'\n');
+                    tts.speak(jarvis[i],TextToSpeech.QUEUE_FLUSH,null);
+                    return;
+                }
+            }if(checkloof==true){
+                ;
+            }else {
+                textView.append("[자비스] 아직 그기능은 구현되지 않았습니다\n");
+                tts.speak("아직 그기능은 구현되지 않았습니다", TextToSpeech.QUEUE_FLUSH, null);
             }
         } catch (Exception e) {
             toast(e.toString());
@@ -108,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }else{
             tts.speak("이용가능한 택시가 없거나 이 기능을 이용할수없어요 ",TextToSpeech.QUEUE_FLUSH,null);
-            textView.append("[자비스] 현재 서비스는 이용 불가능 합니다..\n");
+            textView.append("[자비스] 현재 택시 서비스는 이용 불가능 합니다..\n");
         }
     }
 }
