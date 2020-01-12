@@ -1,8 +1,14 @@
 # Hey-Jarvis
  An Android application that performs commands with voice recognition
+ - https://developer.android.com/guide/components/intents-common.html#java
+ 
+- first try
 
-- https://developer.android.com/guide/components/intents-common.html#java
+![11](./DevelopNote/1.gif)
+>This way, the script was recorded on Google and changed its direction.
 
-### first day commit progress
+- I changed it the following way.
 
-![11](./progressNote/1.gif)
+![22](./DevelopNote/2.gif)
+
+
