@@ -12,12 +12,7 @@
 ![22](./DevelopNote/2.gif)
 
 - 택시 불러 줘 라고말할시 
-
-
    callCar() 호출  (This function is only available on wear os..?)
-
-
-
 <code>
       public void callCar() {
  
