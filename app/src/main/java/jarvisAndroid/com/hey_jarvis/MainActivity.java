@@ -25,11 +25,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
     boolean check=false;
     boolean checkloof=false;
+    boolean checkfinish=false;
+    private BackButtonPressHandler backButtonPressHandler;
     TextToSpeech tts;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        backButtonPressHandler = new BackButtonPressHandler(this);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, 5);
             toast("음성 인식을 허용해 주어야 HEY-JARVIS를 이용할 수 있습니다.");
@@ -146,10 +149,12 @@ public class MainActivity extends AppCompatActivity {
     private void replyAnswer(String input, TextView txt){
         try{
             checkloof=false;
+
             String cmp=input.split(" ")[0];
             String[] me={"안녕","너는 누구야","심심해"};
             String[] jarvis={"안녕하세요 주인님","저는 자비스로 주인님의 집사입니다","백준 문제푸는것 어떠세요?"};
             if(input.equals("종료")){
+                checkfinish=true;
                 tts.speak("서비스를 종료합니다 .", TextToSpeech.QUEUE_FLUSH, null);
                 finish();
             }
@@ -157,14 +162,25 @@ public class MainActivity extends AppCompatActivity {
                 callCar();
                 checkloof=true;
             }
+            if(cmp.equals("검색")){
+                String tmp=input.replace("검색","");
+                textView.append("[자비스]:"+tmp+"에 대한 결과를 나타내줄게요\n");
+                tts.speak(tmp+"에 대한 결과를 나타내어줄게요",TextToSpeech.QUEUE_FLUSH,null);
+                Intent intent =new Intent(this,SearchActivity.class);
+                intent.putExtra("tmp",tmp);
+                startActivity(intent);
+                return;
+            }
             for(int i=0; i<me.length; i++){
                 if(input.equals(me[i])){
                     textView.append("[자비스]:"+jarvis[i]+'\n');
                     tts.speak(jarvis[i],TextToSpeech.QUEUE_FLUSH,null);
                     return;
                 }
-            }if(checkloof==true){
+            }if(checkloof==true ||checkfinish==true){
                 ;
+                //이상하게 종료하면서 로그에 남길때가 있길래 그냥이렇게 구현함
+
             }else {
                 textView.append("[자비스] 아직 그기능은 구현되지 않았습니다\n");
                 tts.speak("아직 그기능은 구현되지 않았습니다", TextToSpeech.QUEUE_FLUSH, null);
@@ -184,5 +200,9 @@ public class MainActivity extends AppCompatActivity {
             tts.speak("이용가능한 택시가 없거나 이 기능을 이용할수없어요 ",TextToSpeech.QUEUE_FLUSH,null);
             textView.append("[자비스] 현재 택시 서비스는 이용 불가능 합니다..\n");
         }
+    }
+    @Override
+    public void onBackPressed(){
+       backButtonPressHandler.onBackPressed();
     }
 }
