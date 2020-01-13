@@ -114,7 +114,9 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onError(int error) {
+
                     toast("오류 발생 : " + error);
+                    stt.destroy();
                 }
 
                 @Override
