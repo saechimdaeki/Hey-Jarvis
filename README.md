@@ -13,7 +13,9 @@
 
 - 택시 불러 줘 라고말할시 
 
+
    callCar() 호출  (This function is only available on wear os..?)
+
 
 
 <code>
