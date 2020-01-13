@@ -12,12 +12,19 @@
 ![22](./DevelopNote/2.gif)
 
 - 택시 불러 줘 라고말할시 
+   callCar() 호출 
+
 <code>
       public void callCar() {
+ 
          Intent intent = new Intent(ReserveIntents.ACTION_RESERVE_TAXI_RESERVATION);
+          
           if (intent.resolveActivity(getPackageManager()) != null) {
+           
            startActivity(intent);
+        
         }
+     
      }
 
 </code>
