@@ -11,7 +11,12 @@
 ![22](2.gif)
 
 - search feature and backpresshandler 
+
 ![33](3.gif)
+
+- jarvis loading scren
+
+![44](./loading.gif)
 
 ## 👀 Todo List
 * JSOUP parsing 
