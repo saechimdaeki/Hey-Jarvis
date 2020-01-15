@@ -20,6 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SearchActivity"/>
+        <activity android:name=".LoadingActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
     </application>
 
 </manifest>
