@@ -1,17 +1,40 @@
 
 
+<details>
+<summary>first try</summary>
+<img src="1.gif" width=400px>
 
-- first try
+### content:
 
-![11](1.gif)
->This way, the script was recorded on Google and changed its direction.
+- This way, the script was recorded on Google and changed its direction.
+</details>
 
-- I changed it the following way.
+<details>
+<summary>change feature</summary>
+<img src="2.gif" width=400px>
 
-![22](2.gif)
+### content:
+
+- change Stt input and create reply
+</details>
+
+<details>
+<summary>search feature </summary>
+<img src="3.gif" width=400px>
+
+### content:
 
 - search feature and backpresshandler 
-![33](3.gif)
+</details>
+
+<details>
+<summary>loading screen  </summary>
+<img src="loading.gif" width=400px>
+
+### content:
+
+- jarvis loading scren
+</details>
 
 ## 👀 Todo List
 * JSOUP parsing 

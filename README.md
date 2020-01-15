@@ -23,6 +23,7 @@
 * 택시 불러 줘 라고말할시 
    callCar() 호출  (This function is only available on wear os..?)
 <code>
+
       public void callCar() {
  
          Intent intent = new Intent(ReserveIntents.ACTION_RESERVE_TAXI_RESERVATION);
@@ -32,8 +33,6 @@
            startActivity(intent);
         
         }
-     
-     }
-
+      }
 </code>
 
