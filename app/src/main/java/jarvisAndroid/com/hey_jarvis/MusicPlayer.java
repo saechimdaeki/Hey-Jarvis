@@ -3,6 +3,7 @@ package jarvisAndroid.com.hey_jarvis;
 import android.app.Notification; //foreground
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +30,9 @@ public class MusicPlayer extends Service {
         CharSequence name = "test";
         int importance = NotificationManager.IMPORTANCE_LOW;
         NotificationChannel mChannel = null;
+        Intent resultIntent=new Intent(this,MainActivity.class);
+        PendingIntent resultPendingIntent=PendingIntent.getActivity(this,1,resultIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             mChannel = new NotificationChannel(id, name, importance);
         }
@@ -43,6 +47,8 @@ public class MusicPlayer extends Service {
         notice.setChannelId(CHANNEL_ID);
         notice.setContentText("뮤직플레이어 가동중");
         notice.build();
+        notice.setAutoCancel(true);
+        notice.setContentIntent(resultPendingIntent);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             startForeground(1,notice.build());
@@ -102,13 +108,16 @@ public class MusicPlayer extends Service {
         Toast.makeText(this,toast,Toast.LENGTH_SHORT).show();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onDestroy() {
         super.onDestroy();
         // 서비스가 종료될 때 실행
         media.reset();
-       // media.stop(); // 음악 종료
+        // media.stop(); // 음악 종료
+        stopForeground(Service.STOP_FOREGROUND_DETACH);
     }
+
 
 
 
