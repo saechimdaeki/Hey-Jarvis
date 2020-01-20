@@ -36,6 +36,16 @@
 - jarvis loading scren
 </details>
 
+<details>
+<summary>music feature create  </summary>
+<img src="music.jpg" width=400px>
+
+### content:
+
+- jarvis music player 
+</details>
+
 ## 👀 Todo List
 * JSOUP parsing 
 * https://developer.android.com/reference#ACTION_RESERVE_TAXI_RESERVATION
+* notification click event 
