@@ -37,8 +37,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
         backButtonPressHandler = new BackButtonPressHandler(this);
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, 5);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO,Manifest.permission.READ_EXTERNAL_STORAGE}, 5);
             toast("음성 인식을 허용해 주어야 HEY-JARVIS를 이용할 수 있습니다.");
         }
         textView=(TextView)findViewById(R.id.textout);
@@ -175,6 +176,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return;
             }
+            if(cmp.equals("음악")|| cmp.equals("뮤직")){
+                textView.append("[자비스]: 뮤직플레이어를 가동합니다\n");
+                tts.speak("뮤직플레이어 가동",TextToSpeech.QUEUE_FLUSH,null);
+                Intent intent = new Intent(this,MusicPlayer.class);
+                startService(intent);
+                return;
+            }
+            if(cmp.equals("음악 정지")|| cmp.equals("음악 멈춰")){
+                textView.append("[자비스]: 뮤직플레이어를 작동중지합니다\n");
+                tts.speak("뮤직플레이어 중지",TextToSpeech.QUEUE_FLUSH,null);
+                Intent intent =new Intent(this,MusicPlayer.class);
+                stopService(intent);
+                return;
+            }
             for(int i=0; i<me.length; i++){
                 if(input.equals(me[i])){
                     textView.append("[자비스]:"+jarvis[i]+'\n');
@@ -209,4 +224,6 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed(){
        backButtonPressHandler.onBackPressed();
     }
+
+
 }
