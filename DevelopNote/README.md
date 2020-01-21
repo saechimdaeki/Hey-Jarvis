@@ -38,11 +38,11 @@
 
 <details>
 <summary>music feature create  </summary>
-<img src="music.jpg" width=400px>
+<img src="notificationbug.gif" width=400px>
 
 ### content:
 
-- jarvis music player 
+- jarvis music player But there is a bug like that.
 </details>
 
 ## 👀 Todo List

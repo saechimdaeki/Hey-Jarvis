@@ -6,10 +6,11 @@
 ### Develop progress
 #### [개발진행상황](./DevelopNote)
 
-## 개발시 어려운점
+### precautions
 
-- android가 oreo이상버전시 notification이 channelID를 쓰고 지정해야한다는것. 이것을 몰랐었다(시간매우소요됨.)
-- 또한 notification클릭이 되지를 않고있는상황 (클릭했을때 앱이켜지게 하려고함 ) 
+- If android is more than OREO version, use channelID. That is how notification appears.
+- notification Each time you click on the notification, the app is re-run and overlaps.
+- If you run the app twice using the music player through the foreground service, the music overlaps. 
 
 
 ## 🤝 How to Contribute
@@ -26,6 +27,7 @@
  * dialing function
  * camera function 
  * notification click event 
+ * fix foreground service(musicplayer)
 * 택시 불러 줘 라고말할시 
    callCar() 호출  (This function is only available on wear os..?)
 <code>
