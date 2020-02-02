@@ -11,6 +11,7 @@
 - If android is more than OREO version, use channelID. That is how notification appears.
 - notification Each time you click on the notification, the app is re-run and overlaps.
 - If you run the app twice using the music player through the foreground service, the music overlaps. 
+- It has the ability to get weather, but it is not yet based on its current location.
 
 
 ## 🤝 How to Contribute
@@ -28,6 +29,7 @@
  * camera function 
  * notification click event 
  * fix foreground service(musicplayer)
+ * geolocation service 
 * 택시 불러 줘 라고말할시 
    callCar() 호출  (This function is only available on wear os..?)
 <code>

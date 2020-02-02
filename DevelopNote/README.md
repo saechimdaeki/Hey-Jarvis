@@ -45,6 +45,17 @@
 - jarvis music player But there is a bug like that.
 </details>
 
+- jarvis weather feature 
+
+<details>
+<summary>about weather</summary>
+<img src="weather.gif" width=400px>
+
+### content:
+
+- parsing weather.
+</details>
+
 ## 👀 Todo List
 * JSOUP parsing 
 * https://developer.android.com/reference#ACTION_RESERVE_TAXI_RESERVATION

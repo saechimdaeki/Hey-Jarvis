@@ -16,6 +16,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.actions.ReserveIntents;
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -156,8 +159,8 @@ public class MainActivity extends AppCompatActivity {
             checkloof=false;
 
             String cmp=input.split(" ")[0];
-            String[] me={"안녕","너는 누구야","심심해"};
-            String[] jarvis={"안녕하세요 주인님","저는 자비스로 주인님의 집사입니다","백준 문제푸는것 어떠세요?"};
+            String[] me={"안녕","너는 누구야","심심해","알고리즘 공부는 어떻게 하니"};
+            String[] jarvis={"안녕하세요 주인님","저는 자비스로 주인님의 집사입니다","백준 문제푸는것 어떠세요?","백준문제를 풀거나 코드포스대회에 참여하는거 어떠세요?"};
             if(input.equals("종료")){
                 checkfinish=true;
                 tts.speak("서비스를 종료합니다 .", TextToSpeech.QUEUE_FLUSH, null);
@@ -176,6 +179,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return;
             }
+
+            if(cmp.equals("날씨 알려줘") || cmp.equals("날씨")) {
+                textView.append("[자비스]: 오늘의 날씨를 알려드리겠습니다\n");
+                tts.speak("오늘의 날씨를 알려드리겠습니다.", TextToSpeech.QUEUE_FLUSH,null);
+                Intent intent = new Intent(this,WeatherActivity.class);
+                startActivity(intent);
+                return;
+            }
+
+
             if(cmp.equals("음악")|| cmp.equals("뮤직")){
                 textView.append("[자비스]: 뮤직플레이어를 가동합니다\n");
                 tts.speak("뮤직플레이어 가동",TextToSpeech.QUEUE_FLUSH,null);
@@ -217,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }else{
             tts.speak("이용가능한 택시가 없거나 이 기능을 이용할수없어요 ",TextToSpeech.QUEUE_FLUSH,null);
-            textView.append("[자비스] 현재 택시 서비스는 이용 불가능 합니다..\n");
+            textView.append("[자비스] 현재 택시 서비스는 이용 불가능 합니다.. 미안해요 \n");
         }
     }
     @Override

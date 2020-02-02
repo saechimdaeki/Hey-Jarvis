@@ -30,6 +30,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services:11.6.2'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.github.KwabenBerko:OpenWeatherMap-Android-Library:2.0.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
 }
