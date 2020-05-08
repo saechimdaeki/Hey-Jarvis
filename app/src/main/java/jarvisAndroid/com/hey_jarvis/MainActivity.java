@@ -191,13 +191,20 @@ public class MainActivity extends AppCompatActivity {
 
             if(cmp.equals("음악")|| cmp.equals("뮤직")){
                 textView.append("[자비스]: 뮤직플레이어를 가동합니다\n");
-                tts.speak("뮤직플레이어 가동",TextToSpeech.QUEUE_FLUSH,null);
-                Intent intent = new Intent(this,MusicPlayer.class);
-                startService(intent);
+                if(MusicPlayer.variable>=1)
+                {
+                    tts.speak("이미 음악이 재생중이에요",TextToSpeech.QUEUE_FLUSH,null);
+                }
+                else {
+                    tts.speak("뮤직플레이어 가동", TextToSpeech.QUEUE_FLUSH, null);
+                    Intent intent = new Intent(this, MusicPlayer.class);
+                    startService(intent);
+                }
                 return;
             }
-            if(cmp.equals("음악 정지")|| cmp.equals("음악 멈춰")){
+            if(cmp.equals("정지")|| cmp.equals("뮤직 멈춰")){
                 textView.append("[자비스]: 뮤직플레이어를 작동중지합니다\n");
+                MusicPlayer.variable=0;
                 tts.speak("뮤직플레이어 중지",TextToSpeech.QUEUE_FLUSH,null);
                 Intent intent =new Intent(this,MusicPlayer.class);
                 stopService(intent);

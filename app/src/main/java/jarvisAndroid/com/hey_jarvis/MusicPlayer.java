@@ -20,10 +20,11 @@ import android.widget.Toast;
 public class MusicPlayer extends Service {
 
     MediaPlayer media;
-
+    public static int variable=0;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
+        variable++;
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         String id = "my_channel_01";
@@ -112,9 +113,8 @@ public class MusicPlayer extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        // 서비스가 종료될 때 실행
-        media.reset();
-        // media.stop(); // 음악 종료
+
+        media.stop(); // 음악 종료
         stopForeground(Service.STOP_FOREGROUND_DETACH);
     }
 
